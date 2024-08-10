@@ -15,13 +15,14 @@ const App = () => {
     async function getMember() {
       try {
         const res = await fetch(
-          "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json/"
+          "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json"
         );
 
         const data = await res.json();
         setMembers(data);
       } catch (e) {
         alert("failed to fetch data");
+        setError("Failed to fetch data");
       }
     }
     getMember();
@@ -48,16 +49,22 @@ const App = () => {
   return (
     <div className="main-container">
       <h1>Employee Data Table</h1>
-      <div className="table-container">
-        {members.length > 0 && <Table members={paginationData()} />}
-      </div>
-      <div className="button-container">
-        <Button handlePage={handlePrevious}>Previous</Button>
-        <Button isDisabled={true} isNum={true}>
-          {page}
-        </Button>
-        <Button handlePage={handleNext}>Next</Button>
-      </div>
+      {error ? (
+        <div>{error}</div>
+      ) : (
+        <>
+          <div className="table-container">
+            <Table members={paginationData()} />
+          </div>
+          <div className="button-container">
+            <Button handlePage={handlePrevious}>Previous</Button>
+            <Button isDisabled={true} isNum={true}>
+              {page}
+            </Button>
+            <Button handlePage={handleNext}>Next</Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

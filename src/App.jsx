@@ -19,7 +19,7 @@ const App = () => {
         const data = await res.json();
         setMembers(data);
       } catch (e) {
-        console.error(e);
+        alert(e);
       }
     }
     getMember();

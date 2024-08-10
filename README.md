@@ -9,13 +9,13 @@
   <ul>
     <li>
       <a href="https://adamlynch.com/flexible-data-tables-with-css-grid/"
-        >html and css template for table</a
+        target="_blank" >html and css template for table</a
       >
     </li>
     <li>
       <a
         href="https://rajrajhans.com/2021/04/pagination-and-infinite-scroll-in-react/"
-        >Pagination for react</a
+        target="_blank">Pagination for react</a
       >
     </li>
   </ul>

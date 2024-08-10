@@ -1,7 +1,7 @@
 <h1>Interview Topics- Pagination -2024</h1>
 
 <div>
-<img src="pagination.png">
+<img src="/src/assets/pagination.png" alt="pagination">
 </div>
 
 <div>

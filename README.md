@@ -13,10 +13,7 @@
       >
     </li>
     <li>
-      <a
-        href="https://rajrajhans.com/2021/04/pagination-and-infinite-scroll-in-react/"
-        target="_blank" rel="noreferrer noopener">Pagination for react</a
-      >
+     <a href="https://rajrajhans.com/2021/04/pagination-and-infinite-scroll-in-react/" target="_blank" rel="noopener noreferrer">Pagination for React</a>
     </li>
   </ul>
 </div>

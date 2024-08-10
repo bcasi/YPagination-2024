@@ -1,43 +1,61 @@
-import { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Table from "./components/Table";
+import Button from "./components/Button";
+
+const itemsPerPage = 10;
 
 const App = () => {
-  const [count, setCount] = useState(0);
+  const [members, setMembers] = useState([]);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    async function getMember() {
+      try {
+        const res = await fetch(
+          "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json"
+        );
+        const data = await res.json();
+        setMembers(data);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    getMember();
+  }, []);
+
+  function handlePrevious() {
+    const startIndex = page * itemsPerPage - itemsPerPage;
+    if (startIndex <= 1) return;
+    setPage((page) => page - 1);
+  }
+
+  function handleNext() {
+    const nextEndIndex = page * itemsPerPage;
+    if (nextEndIndex >= members.length) return;
+    setPage((page) => page + 1);
+  }
+
+  function paginationData() {
+    const startIndex = page * itemsPerPage - itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return members.slice(startIndex, endIndex);
+  }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Vite + React</h1>
-        <p>
-          <button onClick={() => setCount(count => count + 1)}>
-            count is {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://react.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div className="main-container">
+      <h1>Employee Data Table</h1>
+      <div className="table-container">
+        <Table members={paginationData()} />
+      </div>
+      <div className="button-container">
+        <Button handlePage={handlePrevious}>Previous</Button>
+        <Button isDisabled={true} isNum={true}>
+          {page}
+        </Button>
+        <Button handlePage={handleNext}>Next</Button>
+      </div>
     </div>
   );
 };

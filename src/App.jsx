@@ -8,18 +8,20 @@ const itemsPerPage = 10;
 
 const App = () => {
   const [members, setMembers] = useState([]);
+  const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     async function getMember() {
       try {
         const res = await fetch(
-          "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json"
+          "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json/"
         );
+
         const data = await res.json();
         setMembers(data);
       } catch (e) {
-        alert(e);
+        alert("failed to fetch data");
       }
     }
     getMember();
@@ -47,7 +49,7 @@ const App = () => {
     <div className="main-container">
       <h1>Employee Data Table</h1>
       <div className="table-container">
-        <Table members={paginationData()} />
+        {members.length > 0 && <Table members={paginationData()} />}
       </div>
       <div className="button-container">
         <Button handlePage={handlePrevious}>Previous</Button>

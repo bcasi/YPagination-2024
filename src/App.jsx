@@ -40,6 +40,7 @@ const App = () => {
     setPage((page) => page + 1);
   }
 
+  //this will be the sliced index data
   function paginationData() {
     const startIndex = page * itemsPerPage - itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
